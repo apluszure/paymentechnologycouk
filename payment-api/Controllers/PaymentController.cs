@@ -18,8 +18,8 @@ namespace payment_api.Controllers
         [HttpPost]
         public JsonResult Post(Payment value)
         {
-            //value.authenticate_id = "3616055c9aef906320afd0621cb309bb";
-            //value.authenticate_pw = "0cf86254452d38e1513dcc7e36267fdd";
+            value.authenticate_id = "3616055c9aef906320afd0621cb309bb";
+            value.authenticate_pw = "0cf86254452d38e1513dcc7e36267fdd";
             value.secret_key = "5e181e41ebb8d0.80799555";
             //value.firstname = "John";
             //value.lastname = "Smith";
@@ -75,12 +75,11 @@ namespace payment_api.Controllers
             // end signature segment information
 
             // only the above list need to calculate signature
-            value.signature = card.Signature(dic, value.secret_key);
+            value.signature = card.Signature(dic);
 
-            // add the signature to list
-            dic.Add("signature", value.signature);
+            
 
-            PaymentTechnology pt = new PaymentTechnology(value.secret_key, value);
+            PaymentTechnology pt = new PaymentTechnology(value);
             var result = pt.Pay();
 
             return Json(result);

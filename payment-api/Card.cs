@@ -77,7 +77,7 @@ namespace payment_api
             return Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(encrypted + "::" + ivString));
         }
 
-        public string Signature(Dictionary<string, string> dic, string secretKey)
+        public string Signature(Dictionary<string, string> dic)
         {
             StringBuilder sb = new StringBuilder();
             var list = dic.Keys.ToList();
@@ -88,7 +88,7 @@ namespace payment_api
                 sb.Append(dic[key]);
             }
 
-            sb.Append(secretKey);
+            sb.Append(this.secret_key);
 
             var hash = new SHA1Managed().ComputeHash(Encoding.UTF8.GetBytes(sb.ToString()));
             return string.Concat(hash.Select(b => b.ToString("x2")));

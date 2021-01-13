@@ -15,8 +15,6 @@ namespace payment_api
     {
         public Payment paymentParam { get; set; }
 
-        public string secret_key { get; set; }
-
         public string api_url { get; set; }
 
         public string api_url_3DSv { get; set; }
@@ -25,10 +23,9 @@ namespace payment_api
 
         public const string FormDataTemplate = "--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n{2}\r\n";
 
-        public PaymentTechnology(string secretKey, Payment paymentParam, string type = "API")
+        public PaymentTechnology(Payment paymentParam, string type = "API")
         {
             this.paymentParam = paymentParam;
-            this.secret_key = secretKey;
             this.api_url = "https://pay.paymentechnologies.co.uk/authorize_payment";
             this.api_url_3DSv = "https://pay.paymentechnologies.co.uk/authorize3dsv_payment";
             this.api_type = type;
