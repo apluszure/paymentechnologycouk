@@ -2,7 +2,7 @@
 
 git clone https://github.com/paymenTechnologies/paymentechnologies-dotnet.git
 
-# open project paymentechnologycouk
+# open project paymentechnologies-dotnet
 
 cd paymentechnologies-dotnet/payment-api
 
