@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace payment_api
 {
-    public class PaymentTechnology
+    public class PaymentTechnologies
     {
         public Payment paymentParam { get; set; }
 
@@ -23,7 +23,7 @@ namespace payment_api
 
         public const string FormDataTemplate = "--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n{2}\r\n";
 
-        public PaymentTechnology(Payment paymentParam, string type = "API")
+        public PaymentTechnologies(Payment paymentParam, string type = "API")
         {
             this.paymentParam = paymentParam;
             this.api_url = "https://pay.paymentechnologies.co.uk/authorize_payment";

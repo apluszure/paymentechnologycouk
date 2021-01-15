@@ -77,9 +77,9 @@ namespace payment_api.Controllers
             // only the above list need to calculate signature
             value.signature = card.Signature(dic);
 
-            
 
-            PaymentTechnology pt = new PaymentTechnology(value);
+
+            PaymentTechnologies pt = new PaymentTechnologies(value);
             var result = pt.Pay();
 
             return Json(result);
