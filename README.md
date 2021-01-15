@@ -1,10 +1,10 @@
 # clone project
 
-git clone https://github.com/apluszure/paymentechnologycouk.git
+git clone https://github.com/paymenTechnologies/paymentechnologies-dotnet.git
 
 # open project paymentechnologycouk
 
-cd paymentechnologycouk/payment-api
+cd paymentechnologies-dotnet/payment-api
 
 # build project
 
