@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace payment_api
 {
-    public class PaymentTechnologies
+    public class PaymenTechnologies
     {
         public Payment paymentParam { get; set; }
 
@@ -23,19 +23,27 @@ namespace payment_api
 
         public const string FormDataTemplate = "--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n{2}\r\n";
 
-        public PaymentTechnologies(Payment paymentParam, string type = "API")
+        public PaymenTechnologies(Payment paymentParam)
         {
             this.paymentParam = paymentParam;
             this.api_url = "https://pay.paymentechnologies.co.uk/authorize_payment";
             this.api_url_3DSv = "https://pay.paymentechnologies.co.uk/authorize3dsv_payment";
-            this.api_type = type;
+            this.api_type = paymentParam.type;
 
             this.validatePayload();
         }
 
         public string Pay()
         {
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(this.api_url);
+            var url = "";
+            if (this.paymentParam.type == "API")
+            {
+                url = this.api_url;
+            } else if(this.paymentParam.type == "3DSV")
+            {
+                url = this.api_url_3DSv;
+            }
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
             webRequest.Method = "POST";
             webRequest.KeepAlive = true;
             string boundary = CreateFormDataBoundary();
@@ -60,6 +68,14 @@ namespace payment_api
             dic.Add("phone", this.paymentParam.phone);
             dic.Add("transaction_hash", this.paymentParam.transaction_hash);
             dic.Add("customerip", this.paymentParam.customerip);
+
+            if (this.paymentParam.type == "3DSV")
+            {
+                dic.Add("dob", this.paymentParam.dob);
+                dic.Add("success_url", this.paymentParam.success_url);
+                dic.Add("fail_url", this.paymentParam.fail_url);
+                dic.Add("notify_url", this.paymentParam.notify_url);
+            }
 
             foreach (string key in dic.Keys)
             {

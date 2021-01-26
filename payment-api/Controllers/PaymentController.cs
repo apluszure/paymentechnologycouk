@@ -74,12 +74,21 @@ namespace payment_api.Controllers
             dic.Add("customerip", value.customerip);
             // end signature segment information
 
+            // additional fields,  3dsv
+            if (value.type == "3DSV")
+            {
+                dic.Add("dob", value.dob);
+                dic.Add("success_url", value.success_url);
+                dic.Add("fail_url", value.fail_url);
+                dic.Add("notify_url", value.notify_url);
+            }
+
             // only the above list need to calculate signature
             value.signature = card.Signature(dic);
 
 
 
-            PaymentTechnologies pt = new PaymentTechnologies(value);
+            PaymenTechnologies pt = new PaymenTechnologies(value);
             var result = pt.Pay();
 
             return Json(result);

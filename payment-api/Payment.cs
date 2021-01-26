@@ -31,5 +31,6 @@ namespace payment_api
         public string expiration_year { get; set; }
         public string cvc { get; set; }
         public string signature { get; set; }
+        public string type { get; set; }
     }
 }
