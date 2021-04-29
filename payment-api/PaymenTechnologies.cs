@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -72,9 +73,9 @@ namespace payment_api
             if (this.paymentParam.type == "3DSV")
             {
                 dic.Add("dob", this.paymentParam.dob);
-                dic.Add("success_url", this.paymentParam.success_url);
-                dic.Add("fail_url", this.paymentParam.fail_url);
-                dic.Add("notify_url", this.paymentParam.notify_url);
+                dic.Add("success_url", WebUtility.UrlEncode(this.paymentParam.success_url));
+                dic.Add("fail_url", WebUtility.UrlEncode(this.paymentParam.fail_url));
+                dic.Add("notify_url", WebUtility.UrlEncode(this.paymentParam.notify_url));
             }
 
             foreach (string key in dic.Keys)

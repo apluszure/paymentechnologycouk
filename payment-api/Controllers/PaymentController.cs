@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -78,14 +79,13 @@ namespace payment_api.Controllers
             if (value.type == "3DSV")
             {
                 dic.Add("dob", value.dob);
-                dic.Add("success_url", value.success_url);
-                dic.Add("fail_url", value.fail_url);
-                dic.Add("notify_url", value.notify_url);
+                dic.Add("success_url", WebUtility.UrlEncode(value.success_url));
+                dic.Add("fail_url", WebUtility.UrlEncode(value.fail_url));
+                dic.Add("notify_url", WebUtility.UrlEncode(value.notify_url));
             }
 
             // only the above list need to calculate signature
             value.signature = card.Signature(dic);
-
 
 
             PaymenTechnologies pt = new PaymenTechnologies(value);
