@@ -27,8 +27,8 @@ namespace payment_api
         public PaymenTechnologies(Payment paymentParam)
         {
             this.paymentParam = paymentParam;
-            this.api_url = "https://pay.paymentechnologies.co.uk/authorize_payment";
-            this.api_url_3DSv = "https://pay.paymentechnologies.co.uk/authorize3dsv_payment";
+            this.api_url = "https://sandbox-api.paymentechnologies.co.uk/v2/authorize";
+            this.api_url_3DSv = "https://sandbox-api.paymentechnologies.co.uk/v2/authorize-3dsv";
             this.api_type = paymentParam.type;
 
             this.validatePayload();
@@ -73,9 +73,9 @@ namespace payment_api
             if (this.paymentParam.type == "3DSV")
             {
                 dic.Add("dob", this.paymentParam.dob);
-                dic.Add("success_url", WebUtility.UrlEncode(this.paymentParam.success_url));
-                dic.Add("fail_url", WebUtility.UrlEncode(this.paymentParam.fail_url));
-                dic.Add("notify_url", WebUtility.UrlEncode(this.paymentParam.notify_url));
+                dic.Add("success_url", HttpUtility.UrlEncode(this.paymentParam.success_url));
+                dic.Add("fail_url", HttpUtility.UrlEncode(this.paymentParam.fail_url));
+                dic.Add("notify_url", HttpUtility.UrlEncode(this.paymentParam.notify_url));
             }
 
             foreach (string key in dic.Keys)
