@@ -73,9 +73,12 @@ namespace payment_api
             if (this.paymentParam.type == "3DSV")
             {
                 dic.Add("dob", this.paymentParam.dob);
-                dic.Add("success_url", HttpUtility.UrlEncode(this.paymentParam.success_url));
-                dic.Add("fail_url", HttpUtility.UrlEncode(this.paymentParam.fail_url));
-                dic.Add("notify_url", HttpUtility.UrlEncode(this.paymentParam.notify_url));
+                dic.Add("success_url", HttpUtility.UrlEncode(HttpUtility.UrlEncode(this.paymentParam.success_url, Encoding.UTF8))); //.UrlEncode(this.paymentParam.success_url));
+                dic.Add("fail_url", HttpUtility.UrlEncode(HttpUtility.UrlEncode(this.paymentParam.fail_url, Encoding.UTF8))); //.UrlEncode(this.paymentParam.success_url));
+                dic.Add("notify_url", HttpUtility.UrlEncode(HttpUtility.UrlEncode(this.paymentParam.notify_url, Encoding.UTF8))); //.UrlEncode(this.paymentParam.success_url));
+                //dic.Add("success_url", WebUtility.UrlEncode(this.paymentParam.success_url));
+                //dic.Add("fail_url", WebUtility.UrlEncode(this.paymentParam.fail_url));
+                //dic.Add("notify_url", WebUtility.UrlEncode(this.paymentParam.notify_url));
             }
 
             foreach (string key in dic.Keys)

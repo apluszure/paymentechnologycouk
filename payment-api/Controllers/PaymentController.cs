@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +20,9 @@ namespace payment_api.Controllers
         [HttpPost]
         public JsonResult Post(Payment value)
         {
-            value.authenticate_id = "3616055c9aef906320afd0621cb309bb";
-            value.authenticate_pw = "0cf86254452d38e1513dcc7e36267fdd";
-            value.secret_key = "5e181e41ebb8d0.80799555";
+            //value.authenticate_id = "3616055c9aef906320afd0621cb309bb";
+            //value.authenticate_pw = "0cf86254452d38e1513dcc7e36267fdd";
+            //value.secret_key = "5e181e41ebb8d0.80799555";
             //value.firstname = "John";
             //value.lastname = "Smith";
             //value.card_number = "4111111111111111";
@@ -71,7 +72,7 @@ namespace payment_api.Controllers
             dic.Add("state", value.state);
             dic.Add("country", value.country);
             dic.Add("phone", value.phone);
-            dic.Add("transaction_hash", value.transaction_hash);
+            //dic.Add("transaction_hash", value.transaction_hash);
             dic.Add("customerip", value.customerip);
             // end signature segment information
 
@@ -79,9 +80,12 @@ namespace payment_api.Controllers
             if (value.type == "3DSV")
             {
                 dic.Add("dob", value.dob);
-                dic.Add("success_url", WebUtility.UrlEncode(value.success_url));
-                dic.Add("fail_url", WebUtility.UrlEncode(value.fail_url));
-                dic.Add("notify_url", WebUtility.UrlEncode(value.notify_url));
+                //dic.Add("success_url", WebUtility.UrlEncode(value.success_url));
+                //dic.Add("fail_url", WebUtility.UrlEncode(value.fail_url));
+                //dic.Add("notify_url", WebUtility.UrlEncode(value.notify_url));
+                dic.Add("success_url", HttpUtility.UrlEncode(HttpUtility.UrlEncode(value.success_url, Encoding.UTF8))); //.UrlEncode(this.paymentParam.success_url));
+                dic.Add("fail_url", HttpUtility.UrlEncode(HttpUtility.UrlEncode(value.fail_url, Encoding.UTF8))); //.UrlEncode(this.paymentParam.success_url));
+                dic.Add("notify_url", HttpUtility.UrlEncode(HttpUtility.UrlEncode(value.notify_url, Encoding.UTF8))); //.UrlEncode(this.paymentParam.success_url));
             }
 
             // only the above list need to calculate signature
